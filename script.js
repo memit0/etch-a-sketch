@@ -5,7 +5,9 @@ const colorButton = document.querySelector(".color-btn");
 const opacityButton = document.querySelector(".opacity-btn");
 const fragment = document.createDocumentFragment();
 
-function createGrid(length) {
+let userLength = 16;
+
+function createGrid(length, option = "black") {
   const grid = length * length;
 
   const squareLength = 960 / length;
@@ -14,9 +16,22 @@ function createGrid(length) {
     fragment.appendChild(div);
     div.style.height = squareLength + "px";
     div.style.width = squareLength + "px";
-    div.addEventListener("mouseenter", () => {
-      div.style.backgroundColor = "black";
-    });
+
+    if (option === "color") {
+      // generate a random color when user clicks
+      console.log("color");
+
+      div.addEventListener("mouseenter", () => {
+        const randomColor =
+          "#" + Math.floor(Math.random() * 16777215).toString(16);
+        div.style.backgroundColor = randomColor;
+      });
+    } else if (option === "opacity") {
+    } else {
+      div.addEventListener("mouseenter", () => {
+        div.style.backgroundColor = "black";
+      });
+    }
   }
   container.appendChild(fragment);
 }
@@ -31,7 +46,7 @@ createGrid(16);
 gridButton.addEventListener("click", () => {
   const maxGridSize = 100;
 
-  let userLength = Number(
+  userLength = Number(
     window.prompt(`What should the grid size be? (1-${maxGridSize})`, ""),
   );
   if (1 <= userLength && userLength < maxGridSize) {
@@ -44,6 +59,17 @@ gridButton.addEventListener("click", () => {
   }
 });
 
-colorButton.addEventListener("click", () => {});
+clearButton.addEventListener("click", () => {
+  clearGrid();
+  createGrid(userLength);
+});
 
-opacityButton.addEventListener("click", () => {});
+colorButton.addEventListener("click", () => {
+  clearGrid();
+  createGrid(userLength, "color");
+});
+
+opacityButton.addEventListener("click", () => {
+  clearGrid();
+  createGrid(userLength, "opacity");
+});
