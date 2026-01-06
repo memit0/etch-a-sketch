@@ -27,6 +27,19 @@ function createGrid(length, option = "black") {
         div.style.backgroundColor = randomColor;
       });
     } else if (option === "opacity") {
+      // 1. Set the initial state for THIS specific div
+      div.style.backgroundColor = "black";
+      div.style.opacity = 0; // Start invisible
+
+      div.addEventListener("mouseenter", () => {
+        // 2. Get the current opacity (it comes back as a string, so use parseFloat)
+        let currentOpacity = parseFloat(div.style.opacity);
+
+        // 3. Increment it, but don't go past 1.0 (100%)
+        if (currentOpacity < 1) {
+          div.style.opacity = currentOpacity + 0.1;
+        }
+      });
     } else {
       div.addEventListener("mouseenter", () => {
         div.style.backgroundColor = "black";
