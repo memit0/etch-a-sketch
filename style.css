@@ -10,6 +10,10 @@ body {
     background-color: #331e36;
 }
 
+.btn {
+    margin-bottom: 20px;
+}
+
 button {
     border: none;
     border-radius: 10px;
